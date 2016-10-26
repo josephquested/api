@@ -1,0 +1,1 @@
+module.exports = `<h1>Hi Piet! I made you an API.</h1><a href='/robots'>click here to check out the client facing app</a><br><br><h3>Or check out the API! You can see all the robots at /api/robots, or get their JSON individually at /robots/:id</h3>`
