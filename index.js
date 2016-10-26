@@ -27,5 +27,4 @@ app.get('/api/robots/:id', (req, res) => {
 })
 
 app.listen(3000)
-
-console.log("app listening on port 3000")
+console.log("robots somewhat alive on port 3000")
