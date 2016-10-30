@@ -1,5 +1,5 @@
 var express = require('express')
-var data = require('./data')
+var db = require('./db')
 var app = express()
 
 app.get('/', (req, res) => {
@@ -9,21 +9,34 @@ app.get('/', (req, res) => {
 // CLIENT FACING
 
 app.get('/robots', (req, res) => {
-  res.send(require('./views/robots')(data))
+  db.getAll('robots', (err, data) => {
+    if (err) return console.log(`ERROR: ${err}`)
+    res.send(require('./views/robots')(data))
+  })
 })
 
 app.get('/robots/:id', (req, res) => {
-  res.send(require('./views/oneRobot')(data[req.params.id]))
+  db.getOneById('robots', req.params.id, (err, data) => {
+    if (err) return console.log(`ERROR: ${err}`)
+    res.send(require('./views/oneRobot')(data[0]))
+  })
 })
 
-// API
+// API //
 
+// GET METHODS
 app.get('/api/robots', (req, res) => {
-  res.send(data)
+  db.getAll('robots', (err, data) => {
+    if (err) return console.log(`ERROR: ${err}`)
+    res.send(data)
+  })
 })
 
 app.get('/api/robots/:id', (req, res) => {
-  res.send(data[req.params.id])
+  db.getOneById('robots', req.params.id, (err, data) => {
+    if (err) return console.log(`ERROR: ${err}`)
+    res.send(data)
+  })
 })
 
 app.listen(3000)
