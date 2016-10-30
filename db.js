@@ -5,7 +5,8 @@ var knex = require('knex')(config)
 module.exports = {
   getAll: getAll,
   getOneById: getOneById,
-  createRobot: createRobot
+  createRobot: createRobot,
+  updateRobot: updateRobot
 }
 
 function getAll (table, callback) {
@@ -24,5 +25,12 @@ function getOneById (table, id, callback) {
 function createRobot (data, callback) {
   knex('robots')
   .insert({name: data.name})
+  .asCallback(callback)
+}
+
+function updateRobot (data, callback) {
+  knex('robots')
+  .where('id', '=', data.id)
+  .update({name: data.name})
   .asCallback(callback)
 }
