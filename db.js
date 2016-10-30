@@ -6,7 +6,8 @@ module.exports = {
   getAll: getAll,
   getOneById: getOneById,
   createRobot: createRobot,
-  updateRobot: updateRobot
+  updateRobot: updateRobot,
+  deleteRobot: deleteRobot,
 }
 
 function getAll (table, callback) {
@@ -32,5 +33,12 @@ function updateRobot (data, callback) {
   knex('robots')
   .where('id', '=', data.id)
   .update({name: data.name})
+  .asCallback(callback)
+}
+
+function deleteRobot (data, callback) {
+  knex('robots')
+  .where('id', '=', data.id)
+  .del()
   .asCallback(callback)
 }

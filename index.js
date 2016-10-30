@@ -66,5 +66,13 @@ app.post('/robots/:id', (req, res) => {
   })
 })
 
+app.post('/robots/delete/:id', (req, res) => {
+  db.deleteRobot(req.params, (err, index) => {
+    if (err) res.status(404).send(err)
+    console.log(`sucessfully deleted robot ${index}`)
+    res.redirect(`/robots`)
+  })
+})
+
 app.listen(3000)
 console.log("robots somewhat alive on port 3000")
